@@ -4,7 +4,7 @@ class Funcionario {
         this.nome = nome;
         this.cfp = cpf;
         this.rg = rg;
-        this.categoria = empresa;
+        this.empresa = empresa;
     }
 }
 
