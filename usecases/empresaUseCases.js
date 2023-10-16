@@ -5,7 +5,7 @@ const Empresa = require('../entities/empresa');
 const getEmpresasDB = async () => {
     try {
         const { rows } = await pool.query(`SELECT * FROM empresa ORDER BY nome`);
-        return rows.map((empresa) => new Empresa(empresa.codigo, empresa.nome,empresa.razaoSocial,empresa.cnpj,empresa.sigla));
+        return rows.map((empresa) => new Empresa(empresa.codigo, empresa.nome,empresa.razaosocial,empresa.cnpj,empresa.sigla));
     } catch (err){
         throw "Erro: " + err;
     }
@@ -14,7 +14,7 @@ const getEmpresasDB = async () => {
 const addEmpresaDB = async (body) => {
     try {   
         const { cnpj, nome, razaosocial, sigla } =body;
-        const results = await pool.query('insert into empresa (cnpj, nome, razaoSocial,sigla) values ($1,$2,$3,$4) returning codigo, cnpj, nome, razaosocial,sigla;',
+        const results = await pool.query('insert into empresa (cnpj, nome, razaosocial,sigla) values ($1,$2,$3,$4) returning codigo, cnpj, nome, razaosocial,sigla;',
         [cnpj, nome, razaosocial, sigla]);
         const empresa = results.rows[0];
         return new Empresa(empresa.codigo, empresa.nome); 
@@ -62,7 +62,7 @@ const getEmpresaPorCodigoDB = async (codigo) => {
             throw "Nenhum registro encontrado com o código: " + codigo;
         } else {
             const empresa  = results.rows[0];
-            return new Empresa(empresa.codigo, empresa.nome,empresa.razaoSocial,empresa.cnpj,empresa.sigla); 
+            return new Empresa(empresa.codigo, empresa.nome,empresa.razaosocial,empresa.cnpj,empresa.sigla); 
         }       
     } catch (err) {
         throw "Erro ao recuperar a empresa: " + err;
