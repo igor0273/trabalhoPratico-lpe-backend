@@ -27,8 +27,8 @@ const addEmpresaDB = async (body) => {
 const updateEmpresaDB = async (body) => {
     try {   
         const {codigo, nome, cnpj ,sigla} = body;
-        const results = await pool.query(`UPDATE empresa SET  nome=$1,cnpj=$3, sigla=$4
-        WHERE codigo=$5 returning codigo, nome, razaosocial, cnpj,sigla`, 
+        const results = await pool.query(`UPDATE empresa SET  nome=$1,cnpj=$2, sigla=$3
+        WHERE codigo=$4 returning codigo, nome, razaosocial, cnpj,sigla`, 
         [nome, cnpj,sigla ,codigo]);        
         if (results.rowCount == 0){
             throw `Nenhum registro encontrado com o código ${codigo} para ser alterado`;
@@ -62,7 +62,7 @@ const getEmpresaPorCodigoDB = async (codigo) => {
             throw "Nenhum registro encontrado com o código: " + codigo;
         } else {
             const empresa  = results.rows[0];
-            return new Empresa(empresa.codigo, empresa.nome,empresa.razaosocial,empresa.cnpj,empresa.sigla); 
+            return new Empresa(empresa.codigo, empresa.nome,empresa.razaoSocial,empresa.cnpj,empresa.sigla); 
         }       
     } catch (err) {
         throw "Erro ao recuperar a empresa: " + err;
