@@ -19,7 +19,7 @@ const getFuncionariosDB = async () => {
 const addFuncionarioDB = async (body) => {
     try {   
         const { cpf, nome, rg,empresa } = request.body; 
-        const results = await pool.query('insert into funcionario (cpf, nascimento, nome,rg,empresa) values ($1,$2,$3,$4,$5) returning id, cpf,nome,rg,empresa',
+        const results = await pool.query('insert into funcionario (cpf, nascimento, nome,rg,empresa) values ($1,$2,$3,$4,$5) returning codigo, cpf,nome,rg,empresa',
         [cpf, nome, rg,empresa]);
         const funcionario = results.rows[0];
         return new Funcionario(funcionario.codigo, funcionario.nome, funcionario.cpf, funcionario.rg, 
@@ -32,7 +32,7 @@ const addFuncionarioDB = async (body) => {
 const updateFuncionarioDB = async (body) => {
     try {   
         const { id, nome, cpf, rg } = request.body;
-        const results = await  pool.query('UPDATE funcionario SET nome=$1, cpf=$2, rg=$3 where id = $4 returning id,nome,cpf,rg',
+        const results = await  pool.query('UPDATE funcionario SET nome=$1, cpf=$2, rg=$3 where codigo = $4 returning codigo,nome,cpf,rg',
         [nome, cpf, rg, id]);        
         if (results.rowCount == 0){
             throw `Nenhum registro encontrado com o código ${codigo} para ser alterado`;
@@ -60,7 +60,7 @@ const deleteFucnionarioDB = async (codigo) => {
 
 const getFuncionarioPorCodigoDB = async (codigo) => {
     try {           
-        const results = await  pool.query('SELECT * FROM funcionario WHERE id=$1',
+        const results = await  pool.query('SELECT * FROM funcionario WHERE codigo=$1',
         [codigo]);
         if (results.rowCount == 0){
             throw "Nenhum registro encontrado com o código: " + codigo;
