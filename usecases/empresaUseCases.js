@@ -14,7 +14,7 @@ const getEmpresasDB = async () => {
 const addEmpresaDB = async (body) => {
     try {   
         const { cnpj, nome, razaosocial, sigla } =body;
-        const results = await pool.query('insert into empresa (cnpj, nome, razaosocial,sigla) values ($1,$2,$3,$4) returning codigo, cnpj, nome, razaosocial,sigla',
+        const results = await pool.query('insert into empresa (cnpj, nome, razaoSocial,sigla) values ($1,$2,$3,$4) returning codigo, cnpj, nome, razaosocial,sigla;',
         [cnpj, nome, razaosocial, sigla]);
         const empresa = results.rows[0];
         return new Empresa(empresa.codigo, empresa.nome); 
