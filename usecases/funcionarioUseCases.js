@@ -31,9 +31,9 @@ const addFuncionarioDB = async (body) => {
 
 const updateFuncionarioDB = async (body) => {
     try {   
-        const { id, nome, cpf, rg } = request.body;
+        const { codigo, nome, cpf, rg } = request.body;
         const results = await  pool.query('UPDATE funcionario SET nome=$1, cpf=$2, rg=$3 where codigo = $4 returning codigo,nome,cpf,rg',
-        [nome, cpf, rg, id]);        
+        [nome, cpf, rg, codigo]);        
         if (results.rowCount == 0){
             throw `Nenhum registro encontrado com o código ${codigo} para ser alterado`;
         }
