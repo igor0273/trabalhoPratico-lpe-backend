@@ -4,8 +4,7 @@ const { getEmpresasDB, addEmpresaDB,
 
 const getEmpresas = async (request, response) => {
     // capturando o usuario que foi enviado pelo next do verificaJWT
-    console.log('Usuario no getCategorias' + 
-    JSON.stringify(request.usuario));
+    console.log(JSON.stringify(request.usuario));
     await getEmpresasDB()
           .then(data => response.status(200).json(data))
           .catch(err => response.status(400).json({
