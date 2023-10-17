@@ -5,12 +5,12 @@ const Funcionario = require('../entities/funcionario');
 const getFuncionariosDB = async () => {
     try {    
         const { rows } = await pool.query(`select p.codigo as codigo, p.nome as nome, p.cpf as cpf, p.rg as rg, 
-        p.empresa as empresa
+        p.empresa as empresa,c.nome as nomeempresa
         from funcionario p
         join empresa c on p.empresa = c.codigo
         order by p.codigo`);
         return rows.map((funcionario) => new Funcionario(funcionario.codigo, funcionario.nome, funcionario.cpf, funcionario.rg, 
-            funcionario.empresa));        
+            funcionario.empresa,funcionario.nomeempresa));        
     } catch (err) {
         throw "Erro : " + err;
     }
