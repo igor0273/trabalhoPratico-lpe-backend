@@ -6,7 +6,7 @@ const getFuncionariosDB = async () => {
     try {    
         const { rows } = await pool.query(`select p.codigo as codigo, p.nome as nome, p.cpf as cpf, p.rg as rg, 
         p.empresa as empresa
-        from produtos p
+        from funcionario p
         join empresa c on p.empresa = c.codigo
         order by p.codigo`);
         return rows.map((funcionario) => new Funcionario(funcionario.codigo, funcionario.nome, funcionario.cpf, funcionario.rg, 
@@ -18,6 +18,7 @@ const getFuncionariosDB = async () => {
 
 const addFuncionarioDB = async (body) => {
     try {   
+        console.log(body)
         const { cpf, nome, rg,empresa } = body; 
 
         const results = await pool.query('insert into funcionario (cpf, nome,rg,empresa) values ($1,$2,$3,$4) returning codigo, cpf,nome,rg,empresa',
