@@ -5,14 +5,14 @@ const getFucnionarios = async (request, response) => {
         .then(data => response.status(200).json(data))
         .catch(err => response.status(400).json({
             status: 'error',
-            message: 'Erro ao consultar os produtos: ' + err
+            message: 'Erro ao consultar os Funcionarios: ' + err
         }));
 }
 
 const addFuncionario = async (request, response) => {
     await addFuncionarioDB(request.body)
         .then(data => response.status(200).json({
-            status: "success", message: "Produto criado",
+            status: "success", message: "Funcionario criado",
             objeto: data
         }))
         .catch(err => response.status(400).json({
@@ -24,7 +24,7 @@ const addFuncionario = async (request, response) => {
 const updateFuncionario = async (request, response) => {
     await updateFuncionarioDB(request.body)
         .then(data => response.status(200).json({
-            status: "success", message: "Produto alterado",
+            status: "success", message: "Funcionario alterado",
             objeto: data
         }))
         .catch(err => response.status(400).json({
