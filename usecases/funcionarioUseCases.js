@@ -19,6 +19,7 @@ const getFuncionariosDB = async () => {
 const addFuncionarioDB = async (body) => {
     try {   
         const { cpf, nome, rg,empresa } = request.body; 
+        console.log(request.body)
         const results = await pool.query('insert into funcionario (cpf, nome,rg,empresa) values ($1,$2,$3,$4) returning codigo, cpf,nome,rg,empresa',
         [cpf, nome, rg,empresa]);
         const funcionario = results.rows[0];
